@@ -10,10 +10,15 @@ import java.util.List;
 @Getter
 @ToString
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Member extends Person {
     @ManyToMany
     List<Book> bookReserveList;
+    public Member(String name, String family, String nationalId, String username, String password, int age) {
+        super(name, family, nationalId, username, password, age);
+
+    }
+
+
 }

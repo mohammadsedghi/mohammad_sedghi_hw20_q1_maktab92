@@ -9,9 +9,12 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @ToString
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Librarian extends Person {
 
+    public Librarian(String name, String family, String nationalId, String username, String password, int age) {
+        super(name, family, nationalId, username, password, age);
+
+    }
 }

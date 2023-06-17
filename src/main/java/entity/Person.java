@@ -11,9 +11,9 @@ import lombok.experimental.FieldDefaults;
 @Setter
 @Getter
 @ToString
-@NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@NoArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Person extends BaseEntity<Long> {
@@ -23,6 +23,5 @@ public class Person extends BaseEntity<Long> {
     String username;
     String password;
     int age;
-
 
 }

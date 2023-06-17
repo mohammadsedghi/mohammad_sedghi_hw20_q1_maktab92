@@ -10,7 +10,7 @@ import service.LibrarianService;
 
 public class LibrarianServiceImpl extends BaseServiceImpl<Librarian,Long, LibrarianRepository>
         implements LibrarianService {
-    private LibrarianRepository librarianRepository;
+    protected LibrarianRepository librarianRepository;
     public LibrarianServiceImpl(LibrarianRepository repository) {
         super(repository);
         this.librarianRepository=repository;

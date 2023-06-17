@@ -4,9 +4,10 @@ import base.repository.BaseRepository;
 import base.repository.impl.BaseRepositoryImpl;
 import entity.Book;
 import org.hibernate.Session;
+import repository.BookRepository;
 
 public class BookRepositoryImpl extends BaseRepositoryImpl<Book,Long>
-        implements BaseRepository<Book,Long> {
+        implements BookRepository {
     private Session session;
 
     public BookRepositoryImpl(Session session) {
