@@ -2,6 +2,9 @@ package repository;
 
 import base.repository.BaseRepository;
 import entity.Book;
+import entity.Subject;
 
-public interface SubjectRepository extends BaseRepository<Book,Long> {
+import java.lang.reflect.Member;
+
+public interface SubjectRepository extends BaseRepository<Subject,Long> {
 }
