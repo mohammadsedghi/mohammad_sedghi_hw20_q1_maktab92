@@ -2,7 +2,7 @@ package repository.impl;
 
 import base.repository.BaseRepository;
 import base.repository.impl.BaseRepositoryImpl;
-import entity.Book;
+
 import entity.Librarian;
 import org.hibernate.Session;
 
