@@ -5,6 +5,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.util.List;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -14,7 +15,7 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Member extends Person {
     @ManyToMany
-    List<Book> bookReserveList;
+    Set<Book> bookReserveList;
     public Member(String name, String family, String nationalId, String username, String password, int age) {
         super(name, family, nationalId, username, password, age);
 

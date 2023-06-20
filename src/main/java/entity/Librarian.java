@@ -12,9 +12,10 @@ import lombok.experimental.FieldDefaults;
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Librarian extends Person {
-
-    public Librarian(String name, String family, String nationalId, String username, String password, int age) {
+    String degree;
+    public Librarian(String name, String family, String nationalId, String username, String password, int age,String degree) {
         super(name, family, nationalId, username, password, age);
+        this.degree=degree;
 
     }
 }
