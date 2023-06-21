@@ -32,5 +32,5 @@ class MemberServiceTest {
         Mockito.doNothing().when(memberService).signUp(member);
         verify(memberService).signUp(member);
     }
-}
+
 }

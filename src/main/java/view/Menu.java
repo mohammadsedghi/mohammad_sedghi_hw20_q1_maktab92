@@ -39,6 +39,17 @@ public class Menu {
     Scanner scanner = new Scanner(System.in);
     public static Member userMember;
     public static Librarian userLibrarian;
+    Boolean AdminValidator=true;
+    Boolean memberValidator=true;
+    public void startProgramMenu(){
+        while (true) {
+            System.out.println("===============**** WELCOME ****===============");
+            System.out.println("1)signup                2)logIn");
+            if (scanner.nextInt() == 1) registration();
+            else if (scanner.nextInt() == 2) logIn();
+            else System.out.println("you inter wrong item ");
+        }
+    }
 
     public void registration() {
         System.out.println("name");
@@ -57,13 +68,20 @@ public class Menu {
         String degree = scanner.next();
         if (username.startsWith("1")) {
             Librarian librarian = new Librarian(name, family, nationalId, username, password, age, degree);
-           librarianService.validate(librarian);
+           AdminValidator=librarianService.validate(librarian);
+            if (!AdminValidator){
+                System.out.println("Admin: when you are signUp something is inter wrong please try again");
+                startProgramMenu();
+            }
         } else {
             Member member = new Member(name, family, nationalId, username, password, age);
             Set<Book> temporarySet=new HashSet<>();
             member.setBookRenewalDeadlineList(temporarySet);
-          memberService.validate(member);
-
+           memberValidator=memberService.validate(member);
+            if (!memberValidator){
+                System.out.println("when you are signUp something is inter wrong please try again");
+                startProgramMenu();
+            }
         }
         logIn();
     }
@@ -105,7 +123,7 @@ public class Menu {
             case 2:
                 menuForBook();
                 break;
-            case 3:logIn();
+            case 3:startProgramMenu();
             break;
         }
     }
