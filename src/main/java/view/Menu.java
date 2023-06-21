@@ -11,6 +11,13 @@ import service.impl.*;
 import java.time.LocalDate;
 import java.util.*;
 
+/**
+ * this program design for library that admin manage something for example manage books,members,subject
+ * and then confirm of renewal borrowed book ,etc .
+ * this class write for kind of menu for both admin and members
+ * program after running in main method goes to this class .
+ * this program written with intellij idea and jdk 16.0.2
+ */
 public class Menu {
 
     final Session session = HibernateUtil.getSessionFactory().openSession();
@@ -167,6 +174,13 @@ public class Menu {
                     menuForSubject();
                     break;
                 case 5:
+                    Set<Subject> subjects=new HashSet<>(subjectService.isExistBookForSubject());
+                    System.out.println("subject that exist at least one book for it");
+                    for (Subject subjectCandidate : subjects
+                    ){
+
+                        System.out.println("title: "+subjectCandidate.getTitle()+subjectCandidate);
+                }
                     menuForSubject();
                     break;
                 case 6:

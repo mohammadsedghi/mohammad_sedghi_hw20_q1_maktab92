@@ -21,9 +21,9 @@ public class Book extends BaseEntity<Long> {
     String author;
     int printYear;
     int numberOfStock;
-LocalDate  renewalDeadline;
+    LocalDate renewalDeadline;
 
-    public Book( Subject subject, String author, int printYear, int numberOfStock) {
+    public Book(Subject subject, String author, int printYear, int numberOfStock) {
         this.subject = subject;
         this.author = author;
         this.printYear = printYear;
