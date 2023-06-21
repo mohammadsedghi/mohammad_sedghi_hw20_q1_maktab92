@@ -12,4 +12,5 @@ import java.util.Optional;
 public interface PersonService extends BaseService<Person,Long> {
     Librarian findByUsernameAndPasswordForAdmin(String username, String password);
     Member findByUsernameAndPasswordForMember(String username, String password);
+
 }

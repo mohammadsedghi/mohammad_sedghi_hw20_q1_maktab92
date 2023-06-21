@@ -19,6 +19,7 @@ import java.util.*;
  * this class write for kind of menu for both admin and members
  * program after running in main method goes to this class .
  * this program written with intellij idea and jdk 16.0.2
+ * feature of this project is junit test with mockito,validator
  */
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Menu {
@@ -56,12 +57,13 @@ public class Menu {
         String degree = scanner.next();
         if (username.startsWith("1")) {
             Librarian librarian = new Librarian(name, family, nationalId, username, password, age, degree);
-            librarianService.save(librarian);
+           librarianService.validate(librarian);
         } else {
             Member member = new Member(name, family, nationalId, username, password, age);
             Set<Book> temporarySet=new HashSet<>();
             member.setBookRenewalDeadlineList(temporarySet);
-            memberService.save(member);
+          memberService.validate(member);
+
         }
         logIn();
     }
