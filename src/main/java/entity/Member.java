@@ -7,6 +7,10 @@ import lombok.experimental.FieldDefaults;
 
 import java.util.Set;
 
+/**
+ * this class is so important because many to many relation defined
+ * and more than another class have relation with another entity
+ */
 @Setter
 @Getter
 @ToString

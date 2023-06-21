@@ -5,6 +5,10 @@ import jakarta.persistence.Entity;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+/**
+ * this entity is written for manage subject edit remove or add
+ *
+ */
 @Setter
 @Getter
 @ToString

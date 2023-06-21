@@ -10,6 +10,12 @@ import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
 
+/**
+ * this class is defined for generated book  and
+ * relation with another entity
+ * all things that have relation with book is
+ * defined in this class
+ */
 @Setter
 @Getter
 @ToString

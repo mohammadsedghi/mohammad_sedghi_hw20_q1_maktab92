@@ -5,6 +5,10 @@ import jakarta.persistence.Entity;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+/**
+ * librarian have roll of admin in my project
+ * and manage all something that might be work in this project
+ */
 @Setter
 @Getter
 @ToString
