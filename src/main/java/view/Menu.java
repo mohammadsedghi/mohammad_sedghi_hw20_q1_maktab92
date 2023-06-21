@@ -19,7 +19,7 @@ import java.util.*;
  * this class write for kind of menu for both admin and members
  * program after running in main method goes to this class .
  * this program written with intellij idea and jdk 16.0.2
- * feature of this project is junit test with mockito,validator
+ * feature of this project is junit test with mockito,validator,logger
  */
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Menu {
