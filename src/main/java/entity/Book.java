@@ -3,6 +3,7 @@ package entity;
 import base.BaseEntity;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToOne;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -28,7 +29,6 @@ public class Book extends BaseEntity<Long> {
         this.author = author;
         this.printYear = printYear;
         this.numberOfStock = numberOfStock;
-
     }
 
 

@@ -3,6 +3,8 @@ package view;
 
 import base.repository.util.HibernateUtil;
 import entity.*;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.hibernate.Session;
 import repository.*;
 import repository.impl.*;
@@ -18,6 +20,7 @@ import java.util.*;
  * program after running in main method goes to this class .
  * this program written with intellij idea and jdk 16.0.2
  */
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Menu {
 
     final Session session = HibernateUtil.getSessionFactory().openSession();
@@ -56,6 +59,8 @@ public class Menu {
             librarianService.save(librarian);
         } else {
             Member member = new Member(name, family, nationalId, username, password, age);
+            Set<Book> temporarySet=new HashSet<>();
+            member.setBookRenewalDeadlineList(temporarySet);
             memberService.save(member);
         }
         logIn();
