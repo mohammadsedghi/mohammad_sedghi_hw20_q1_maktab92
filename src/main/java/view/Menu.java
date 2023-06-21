@@ -226,7 +226,7 @@ public class Menu {
                             for (Book book : bookSetForEdit) {
 
                                 System.out.println("--------------------------------------------------------------------------");
-                                System.out.println("subject: " + book.getSubject().getTitle() + "author: " + book.getAuthor() + "print year: " + book.getPrintYear());
+                                System.out.println("subject: " + book.getSubject().getTitle() + "author: " + book.getAuthor() + "print year: " + book.getPrintYear()+" stock: "+book.getNumberOfStock());
                                 System.out.println("--------------------------------------------------------------------------");
                                 System.out.println("1)Edit subject                 2)remove                 3)next book");
                                 switch (scanner.nextInt()) {
@@ -277,6 +277,7 @@ public class Menu {
                     ) {
                         System.out.println("name: " + member.getName() + " family: " + member.getFamily());
                         if (member.getBookReserveList().size() > 0) {
+                            System.out.println("======================*****  reserve part  ******======================");
                             Set<Book> temporaryReserveBook = new HashSet<>(member.getBookReserveList());
                             Set<Book> temporaryBorrowedBook;
                             if (member.getBookBorrowedList() == null) {
@@ -286,8 +287,8 @@ public class Menu {
                             }
                             for (Book book : temporaryReserveBook
                             ) {
-                                System.out.println("subject: " + book.getSubject().getTitle() + "author: " + book.getAuthor() + "print year: " + book.getPrintYear());
-                                System.out.println("do you want to confirm it? y ->yes  n -> no");
+                                System.out.println("book ==> subject: " + book.getSubject().getTitle() + "  author: " + book.getAuthor() + "  print year: " + book.getPrintYear()+" stock: "+book.getNumberOfStock());
+                                System.out.println("do you want to confirm reserve it? y ->yes  n -> no");
                                 if (scanner.next().equals("y")) {
                                     book.setNumberOfStock(book.getNumberOfStock() - 1);
                                     bookService.update(book);
@@ -307,26 +308,33 @@ public class Menu {
                                 }
                             }
                         }
+
                         if (member.getBookRenewalDeadlineList().size() > 0) {
+                            System.out.println("======================*****  renewal part  ******======================");
                             Set<Book> temporaryRenewalDeadlineList = new HashSet<>(member.getBookRenewalDeadlineList());
+                            Set<Book> copyTemporaryRenewalDeadlineList = new HashSet<>(member.getBookRenewalDeadlineList());
                             Set<Book> temporaryBorrowedList = new HashSet<>(member.getBookBorrowedList());
+                            Set<Book> copyTemporaryBorrowedList = new HashSet<>(member.getBookBorrowedList());
 
                             for (Book book : temporaryRenewalDeadlineList
                             ) {
-                                System.out.println("subject: " + book.getSubject().getTitle() + "author: " + book.getAuthor() + "print year: " + book.getPrintYear());
-                                System.out.println("do you want to confirm it? y ->yes  n -> no");
-                                if (scanner.next().equals("y")) {
-                                    temporaryRenewalDeadlineList.remove(book);
-                                    temporaryBorrowedList.remove(book);
+                                System.out.println();
+                                System.out.println("book ==> subject: " + book.getSubject().getTitle() + "  author: " + book.getAuthor() + "  print year: " + book.getPrintYear()+" stock: "+book.getNumberOfStock());
+                                System.out.println();
+                                System.out.println("do you want to confirm renewal it? 1->yes  2 -> no");
+                                if (scanner.nextInt()==1) {
+                                   copyTemporaryRenewalDeadlineList.remove(book);
+                                    copyTemporaryBorrowedList.remove(book);
                                     book.setRenewalDeadline(LocalDate.of(book.getRenewalDeadline().getYear(), book.getRenewalDeadline().getMonthValue() + 1, book.getRenewalDeadline().getDayOfMonth()));
-                                    temporaryBorrowedList.add(book);
-                                    member.setBookRenewalDeadlineList(temporaryRenewalDeadlineList);
-                                    member.setBookRenewalDeadlineList(temporaryBorrowedList);
+                                    copyTemporaryBorrowedList.add(book);
+                                    member.setBookRenewalDeadlineList(copyTemporaryRenewalDeadlineList);
+                                    member.setBookBorrowedList(copyTemporaryBorrowedList);
+                                    bookService.update(book);
                                     memberService.update(member);
-                                    System.out.println("deadline for one month is renewal ");
+                                    System.out.println("deadline for one month is renewal until: "+book.getRenewalDeadline());
                                 } else {
-                                    temporaryRenewalDeadlineList.remove(book);
-                                    temporaryBorrowedList.remove(book);
+                                    copyTemporaryRenewalDeadlineList.remove(book);
+                                    copyTemporaryBorrowedList.remove(book);
                                     if (member.getHistoryOFBorrowedBookList() == null) {
                                         temporaryHistoryBorrowedList = new HashSet<>();
                                     } else {
@@ -334,8 +342,8 @@ public class Menu {
                                     }
                                     temporaryHistoryBorrowedList.add(book);
                                     member.setHistoryOFBorrowedBookList(temporaryHistoryBorrowedList);
-                                    member.setBookRenewalDeadlineList(temporaryRenewalDeadlineList);
-                                    member.setBookRenewalDeadlineList(temporaryBorrowedList);
+                                    member.setBookRenewalDeadlineList(copyTemporaryRenewalDeadlineList);
+                                    member.setBookRenewalDeadlineList(copyTemporaryBorrowedList);
                                     book.setNumberOfStock(book.getNumberOfStock() + 1);
                                     bookService.update(book);
                                     memberService.update(member);
@@ -378,12 +386,13 @@ public class Menu {
                 case 2:
                     Set<Book> bookSet = new HashSet<>(bookService.loadAll());
                     for (Book book : bookSet) {
-                        System.out.println("subject: " + book.getSubject().getTitle() + "author: " + book.getAuthor() + "print year: " + book.getPrintYear());
+                        System.out.println("subject: " + book.getSubject().getTitle() + "  author: " + book.getAuthor() + "  print year: " + book.getPrintYear()+" stock: "+book.getNumberOfStock());
                         System.out.println("do you want to borrow it? y ->yes   n -> no");
                         if (scanner.next().equals("y")) {
                             if (book.getNumberOfStock() > 0) {
                                 System.out.println("please wait for admin confirm your borrowing.");
                                 Set<Book> bookReserveSet = new HashSet<>();
+                                book.setRenewalDeadline(LocalDate.now());
                                 bookReserveSet.add(book);
                                 userMember.setBookReserveList(bookReserveSet);
                                 memberService.update(userMember);
@@ -396,11 +405,18 @@ public class Menu {
                     if (userMember.getBookBorrowedList().size() > 0) {
                         Set<Book> bookSetBorrowed = new HashSet<>(userMember.getBookBorrowedList());
                         for (Book book : bookSetBorrowed) {
-                            System.out.println("subject: " + book.getSubject().getTitle() + "author: " + book.getAuthor() + "print year: " + book.getPrintYear());
+                            System.out.println("subject: " + book.getSubject().getTitle() + "author: " + book.getAuthor() + "print year: " + book.getPrintYear()+" stock: "+book.getNumberOfStock());
                             System.out.println(book.getRenewalDeadline());
                             System.out.println("do you want to renewal deadline? y ->yes  n -> no");
                             if (scanner.next().equals("y")) {
-                                Set<Book> bookSetRenewal = new HashSet<>(userMember.getBookRenewalDeadlineList());
+                                Set<Book> bookSetRenewal;
+                                if (userMember.getBookRenewalDeadlineList()==null){
+                                    bookSetRenewal = new HashSet<>();
+                                }else {
+                                bookSetRenewal = new HashSet<>(userMember.getBookRenewalDeadlineList());
+                                }
+                                book.setRenewalDeadline(LocalDate.of(book.getRenewalDeadline().getYear(),book.getRenewalDeadline().getMonthValue(),book.getRenewalDeadline().getDayOfMonth()));
+                               bookService.update(book);
                                 bookSetRenewal.add(book);
                                 userMember.setBookRenewalDeadlineList(bookSetRenewal);
                                 memberService.update(userMember);
@@ -414,7 +430,7 @@ public class Menu {
                     if (userMember.getHistoryOFBorrowedBookList().size() > 0) {
                         for (Book book : userMember.getHistoryOFBorrowedBookList()
                         ) {
-                            System.out.println("subject: " + book.getSubject().getTitle() + "author: " + book.getAuthor() + "print year: " + book.getPrintYear());
+                            System.out.println("subject: " + book.getSubject().getTitle() + "author: " + book.getAuthor() + "print year: " + book.getPrintYear()+" stock: "+book.getNumberOfStock());
                             System.out.println("------------------------------------------------------------------");
                         }
 
